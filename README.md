@@ -1,3 +1,21 @@
+# Spotify Color Playlist Creator
+
+A tool that analyzes album artwork from your Spotify library to create playlists based on colors, objects, moods, and more.
+
+## Overview
+
+This project leverages the Spotify API to analyze album artwork and create custom playlists based on various visual attributes:
+
+- **Color-based playlists**: Group songs by dominant album cover colors
+- **Object detection**: Create playlists based on objects detected in album art
+- **Seasonal themes**: Generate playlists that match seasonal color palettes and themes
+- **Time of day**: Curate playlists suitable for different times of day
+- **Mood-based**: Create playlists based on the mood conveyed by the artwork
+- **Gradient collections**: Organize songs in color gradient sequences
+- **Image creation**: Arrange songs to form visual patterns when viewed as a playlist
+
+## Directory Structure
+
 # spotify_color_playlist_creator
 Use spotify api to create playlists by colors from album artwork
 
@@ -73,3 +91,84 @@ redirect url: http://localhost:8080
 ## Future Directions
     - Implement stripe payment to $1.99 per month
     - Create a website for the tool
+
+## Authentication Setup
+
+This project requires Spotify API credentials. For security:
+
+1. Create a `config.py` file in the root directory with your Spotify credentials:
+
+```python
+# config.py
+CLIENT_ID = 'your_client_id'
+CLIENT_SECRET = 'your_client_secret'
+REDIRECT_URI = 'http://localhost:8080'
+```
+
+2. Add this file to your `.gitignore` to prevent it from being committed:
+```
+# .gitignore
+config.py
+__pycache__/
+*.pyc
+```
+
+3. Reference these credentials in your code:
+```python
+from config import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+```
+
+**Note:** Never commit API keys or secrets to GitHub. The `config.py` approach keeps credentials local to your development environment.
+
+## Workflow
+
+### 1. Authentication
+- User authenticates with Spotify credentials
+- Application requests appropriate permissions
+
+### 2. Select Source Playlist
+- User selects a playlist to analyze (default: liked songs)
+
+### 3. Metadata Collection
+- `scrape_songs.py` collects metadata from selected playlist
+- Data is cached to prevent redundant analysis
+
+### 4. Analysis
+- **Color analysis**: Extract color patterns using ML techniques
+- **Object detection**: Identify objects in album artwork
+- **Lyrics analysis**: Extract themes and topics from lyrics
+- **Geographical analysis**: Group songs by artist location
+- **Temporal analysis**: Analyze release dates and time-related metadata
+- **Genre and BPM**: Collect audio features and characteristics
+
+### 5. Playlist Creation
+The tool generates playlists based on various attributes:
+- **Color**: Songs with similar dominant colors
+- **Seasonal**: Songs matching seasonal palettes
+- **Time of Day**: Energy-appropriate playlists for different times
+- **Mood**: Playlists based on perceived mood
+- **Objects**: Songs with common objects in artwork
+- **Gradient**: Color gradient-based arrangements
+- **Image**: Songs arranged to create visual patterns
+
+## Setup and Installation
+
+*Instructions coming soon*
+
+## Usage
+
+*Instructions coming soon*
+
+## Future Directions
+- Implement premium features
+- Create a dedicated website interface
+- Expand analysis capabilities
+- Add social sharing features
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+*License information coming soon*
