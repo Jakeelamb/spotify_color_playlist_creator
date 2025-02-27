@@ -1,31 +1,46 @@
 """Configuration settings for the Spotify Color Playlist Creator."""
 
+import os
+import json
+from pathlib import Path
+
+# Try to import local config (not in version control)
+try:
+    from spotify_playlist_creator.config_local import *
+except ImportError:
+    # Default values if local config doesn't exist
+    CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", "")
+    CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", "")
+    REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI", "http://localhost:8080")
+    
+    # Genius API credentials
+    GENIUS_CLIENT_ID = os.environ.get("GENIUS_CLIENT_ID", "")
+    GENIUS_CLIENT_SECRET = os.environ.get("GENIUS_CLIENT_SECRET", "")
+    GENIUS_CLIENT_ACCESS_TOKEN = os.environ.get("GENIUS_CLIENT_ACCESS_TOKEN", "")
+
+# Create cache directory if it doesn't exist
+CACHE_DIR = Path.home() / ".spotify_playlist_creator"
+CACHE_DIR.mkdir(exist_ok=True)
+
+# Cache file paths
+TOKEN_CACHE = CACHE_DIR / "token.json" 
+LIKED_SONGS_CACHE = CACHE_DIR / "liked_songs.json"
+ALBUM_IMAGES_DIR = CACHE_DIR / "album_images"
+COLOR_CACHE = CACHE_DIR / "color_analysis.json"
+OBJECT_DETECTION_CACHE = CACHE_DIR / "object_detection.json"
+LYRICS_CACHE = CACHE_DIR / "lyrics_analysis.json"
+AUDIO_FEATURES_CACHE = CACHE_DIR / "audio_features.json"
+
+# Create album image directory if it doesn't exist
+ALBUM_IMAGES_DIR.mkdir(exist_ok=True)
+
+# Default scopes and settings
+SCOPE = "user-library-read playlist-modify-public playlist-modify-private"
+DEFAULT_MAX_RETRIES = 3
+DEFAULT_RETRY_DELAY = 2
+
 # Add this import at the top
 import numpy as np
-
-# Spotify API credentials
-CLIENT_ID = "7d31698de0874df9ab08249f3c046561"
-CLIENT_SECRET = "20bb675d81d64cd3a771b75daed51012"
-REDIRECT_URI = "http://localhost:8080"
-
-
-# Genius API token
-GENIUS_CLIENT_ID = "H3U6-zi6eFF7AAw3YqlyLeY1buTNdrqkzSCGrnC4qMNARvUI4crwGlKDUinEgUwl"
-GENIUS_CLIENT_SECRET = "AdL3gQPv3uANsFGJrv9RAvTP8QsArnsocEgwnp8jQwbP0O_eZ0FU75-fTgKbDNr23yRjJ5dvdbAA5fYlQQn2lw"
-GENIUS_CLIENT_ACCESS_TOKEN = "nna9HdUF2PsSKXNPkfaU0ubzscXtsDM0OIO7gEriYqvpX1V64eOALC8OR7qoPAMN"
-# Scopes required for accessing user data and creating playlists
-SCOPE = "user-library-read playlist-modify-public playlist-modify-private"
-
-# Cache file names
-LIKED_SONGS_CACHE = "liked_songs_cache.json"
-COLOR_ANALYSIS_CACHE = "color_analysis_cache.json"
-
-# Default settings
-DEFAULT_CACHE_EXPIRY_HOURS = 24
-DEFAULT_IMAGE_TIMEOUT = 10
-DEFAULT_API_TIMEOUT = 20
-DEFAULT_MAX_RETRIES = 5
-DEFAULT_RETRY_DELAY = 3
 
 # Expanded color categories mapping with more nuanced colors
 COLOR_CATEGORIES = {
@@ -112,10 +127,6 @@ CONTRAST_PAIRS = [
     ("Yellow", "Purple"),
     ("Black", "White")
 ]
-
-# Cache file paths
-OBJECT_DETECTION_CACHE = "object_detection_cache.json"
-LYRICS_CACHE = "lyrics_cache.json"
 
 # Genius API for lyrics (you'll need to sign up at https://genius.com/api-clients)
 GENIUS_API_TOKEN = "YOUR_GENIUS_API_TOKEN"  # Replace with your actual token
