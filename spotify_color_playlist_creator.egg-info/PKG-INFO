@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: spotify_color_playlist_creator
+Version: 0.1.0
+License-File: LICENSE
+Requires-Dist: spotipy
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: scikit-learn
+Requires-Dist: tqdm
+Requires-Dist: questionary
+Requires-Dist: requests
+Requires-Dist: colorthief

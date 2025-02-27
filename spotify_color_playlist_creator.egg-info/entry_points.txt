@@ -1,0 +1,2 @@
+[console_scripts]
+spotify-playlists = spotify_playlist_creator.cli:main

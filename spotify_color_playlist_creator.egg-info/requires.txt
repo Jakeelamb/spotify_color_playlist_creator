@@ -1,0 +1,8 @@
+spotipy
+numpy
+pillow
+scikit-learn
+tqdm
+questionary
+requests
+colorthief
